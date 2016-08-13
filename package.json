@@ -1,0 +1,28 @@
+{
+  "name": "json-stack",
+  "version": "0.0.0",
+  "description": "stack json objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ansteh/json-stack.git"
+  },
+  "keywords": [
+
+  ],
+  "author": "Andre Stehle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ansteh/json-stack/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.15.0"
+  },
+  "devDependencies": {}
+}
