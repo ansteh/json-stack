@@ -6,4 +6,8 @@ describe("horizontal:", function() {
   it("nested properties", function() {
     expect(stack.horizontal(resource.nested)).toEqual(resource.nestedHorizontal);
   });
+
+  it("nested properties with array", function() {
+    expect(stack.horizontal(resource.nestedWithArray)).toEqual(resource.nestedWithArrayHorizontal);
+  });
 });
