@@ -2,25 +2,69 @@
 const _ = require('lodash');
 
 const vertical = (json) => {
-  let head = {};
+  let collector = {};
   let parts = [];
 
   _.forOwn(json, (value, key) => {
     if(isNativeType(value)) {
-
+      if(parts.length > 0) {
+        _.forEach(parts, (row) => {
+          row[key] = value;
+        });
+      } else {
+        collector[key] = value;
+      }
     } else if(_.isArray(value)) {
-      parts.push(verticalCollection(key, value));
+      let collection = verticalCollection(key, value);
+      if(parts.length > 0) {
+        let expansion = [];
+        _.forEach(parts, (row) => {
+          _.forEach(collection, (item) => {
+            expansion.push(_.assing(_.cloneDeep(row), item));
+          });
+        });
+        parts = expansion;
+      } else {
+        _.forEach(collection, (item) => {
+          parts.push(_.assign(_.cloneDeep(collector), item));
+        });
+      }
     } else {
-      //console.log(vertical(value));
       let deep = vertical(value);
-      _.forEach(deep, (value) => {
-        extendKeyNamesByPrefix(key, value);
-      });
-      parts.push(deep);
+      if(_.isArray(deep)) {
+        if(parts.length > 0) {
+          let expansion = [];
+          _.forEach(parts, (row) => {
+            _.forEach(deep, (item) => {
+              extendKeyNamesByPrefix(key, item);
+              expansion.push(_.assign(_.cloneDeep(row), item));
+            });
+          });
+          parts = expansion;
+        } else {
+          _.forEach(deep, (item) => {
+            extendKeyNamesByPrefix(key, item);
+            parts.push(_.assign(_.cloneDeep(collector), item));
+          });
+        }
+      } else {
+        extendKeyNamesByPrefix(key, deep);
+        if(parts.length > 0) {
+          _.forEach(parts, (row) => {
+            _.assign(row, deep);
+          });
+        } else {
+          _.assign(collector, deep);
+        }
+      }
     }
   });
 
-  return _.flatten(parts);
+  if(parts.length === 0) {
+    return collector;
+  } else {
+    return parts;
+  }
 };
 
 const verticalCollection = (key, collection) => {
@@ -41,23 +85,6 @@ const verticalCollection = (key, collection) => {
   });
 
   return collector;
-};
-
-const partition = (json) => {
-  let groups = {
-    objects: [],
-    arrays: []
-  };
-
-  _.forOwn(json, (value, key) => {
-    if(_.isArray(value)) {
-      groups.arrays.push({ key: key, value: value });
-    } else {
-      groups.objects.push({ key: key, value: value });
-    }
-  });
-
-  return groups;
 };
 
 const isNativeType = (value) => {

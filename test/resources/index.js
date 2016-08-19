@@ -54,3 +54,45 @@ module.exports.coreVerticalNested = {
     'a.b': 2
   }]
 };
+
+module.exports.jsonVerticalNested = {
+  input: {
+    a: {
+      x: 2,
+      y: {
+        z: 1
+      }
+    },
+    b: [1, 2]
+  },
+  output: [{
+    'a.x': 2,
+    'a.y.z': 1,
+    'b': 1
+  }, {
+    'a.x': 2,
+    'a.y.z': 1,
+    'b': 2
+  }]
+};
+
+module.exports.deepJsonVerticalNested = {
+  input: {
+    a: {
+      x: 2,
+      y: {
+        b: [1, 2],
+        z: 1
+      }
+    }
+  },
+  output: [{
+    'a.x': 2,
+    'a.y.b': 1,
+    'a.y.z': 1
+  }, {
+    'a.x': 2,
+    'a.y.b': 2,
+    'a.y.z': 1
+  }]
+};
