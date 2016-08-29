@@ -40,7 +40,7 @@ describe("vertical:", function() {
   });
 
   it("deep nested json array", function() {
-    console.log(JSON.stringify(stack.vertical(resource.deepJsonVerticalNested.input), null, 2));
+    //console.log(JSON.stringify(stack.vertical(resource.deepJsonVerticalNested.input), null, 2));
     expect(stack.vertical(resource.deepJsonVerticalNested.input)).toEqual(resource.deepJsonVerticalNested.output);
   });
 
