@@ -1,6 +1,6 @@
 {
   "name": "json-stack",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "stack json objects",
   "main": "index.js",
   "scripts": {
@@ -17,16 +17,14 @@
     "lib",
     "index.js"
   ],
-  "keywords": [
-
-  ],
+  "keywords": [],
   "author": "Andre Stehle",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ansteh/json-stack/issues"
   },
   "dependencies": {
-    "lodash": "^4.15.0"
+    "lodash": "^4.16.6"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
